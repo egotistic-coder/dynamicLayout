@@ -1,0 +1,103 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand"><h2>D - Layout</h2></a>
+  <div>
+    <button class="btn btn-outline-success my-2 my-sm-0"  style="min-height:50px;margin:5px;" (click)="AddEmptyContainer()">Add Cells</button>
+    <button class="btn btn-outline-primary my-2 my-sm-0"  style="min-height:50px;margin:5px;" (click)="CurrentContainerLayout()">Get Container Layout</button>
+    <button class="btn btn-outline-secondary my-2 my-sm-0"  style="min-height:50px;margin:5px;" (click)="CurrentLayout()">Get DropItem Layout</button>
+  </div>
+</nav>
+
+
+<div class="row">
+  <div class="col-sm">
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#dataChange" role="button" aria-expanded="false" aria-controls="collapseExample">
+         Changes
+      </a>    
+    </p>
+    <div class="collapse" id="dataChange">
+      <div class="card card-body form-group">
+        <div class="form-group">
+          <label for="comment">Grid Changes:</label>
+          <textarea class="form-control" rows="5" id="layoutchanges"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="comment">Drop Content Changes:</label>
+          <textarea class="form-control" rows="5" id="contentchanges"></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" style="min-height:50px;margin:5px;">Apply Layout Changes</button>
+        </div>
+    </div>
+    </div>
+    
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+         Container
+      </a>    
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body form-group">
+        <div class="toolbar1" class="col-md-12">
+          <nav>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" (dragend)="DroppableItems('TabContent1')">
+                <a class="nav-link active btn btn-primary" id="1-tab" data-toggle="tab" href="#tab1" role="tab"
+                  class="draggable" draggable="true" (dragend)="DroppableItems('TabContent1')" aria-controls="home"
+                  aria-selected="true">TAB 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="2-tab" data-toggle="tab" href="#tab2" role="tab" class="draggable" draggable="true"
+                  (dragend)="DroppableItems('TabContent2')" aria-controls="profile" aria-selected="false">TAB 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="3-tab" data-toggle="tab" href="#tab3" role="tab" class="draggable" draggable="true"
+                  (dragend)="DroppableItems('TabContent3')" aria-controls="contact" aria-selected="false">TAB 3</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="4-tab" data-toggle="tab" href="#tab4" role="tab" class="draggable" draggable="true"
+                  (dragend)="DroppableItems('TabContent4')" aria-controls="contact" aria-selected="false">TAB 4</a>
+              </li>
+            </ul>
+          </nav>
+        
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="1-tab">
+              <app-example1></app-example1>
+            </div>
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="2-tab">
+              <app-example2></app-example2>
+            </div>
+            <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="3-tab">
+              <app-example3></app-example3>
+            </div>
+            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="4-tab">
+              <app-example4></app-example4>
+            </div>
+          </div>
+         
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="col-sm">
+    <gridster [options]="options" >
+      <gridster-item *ngFor="let item of layout" [item]="item" (dragover)="SetContainerId(item.id)">
+        <div class="alert alert-dismissible">
+          <ng-container appLayoutItem [componentRef]="GetContainerElement(item.id)" >
+    
+            
+       
+          </ng-container>
+          <button (click)="RemoveContainer(item.id)">Delete Item</button>
+        </div>
+      </gridster-item>
+    </gridster>
+  </div>
+</div>
+
+
+
+
